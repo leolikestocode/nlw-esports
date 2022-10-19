@@ -30,9 +30,7 @@ export default function CreateAdModal({ setOpen }: CreateAdModalProps) {
     event.preventDefault()
 
     const target = event.target as HTMLFormElement
-
     const formData = new FormData(target)
-
     const data = Object.fromEntries(formData)
 
     const reqData = {
@@ -72,7 +70,7 @@ export default function CreateAdModal({ setOpen }: CreateAdModalProps) {
     }
 
     try {
-      await axios.post(`http://localhost:8888/ads/${data.game}`, reqData)
+      await axios.post(`http://localhost:3333/games/${data.game}/ads`, reqData)
 
       alert("Anúncio criado com sucesso!")
 
