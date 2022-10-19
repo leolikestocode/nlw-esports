@@ -8,38 +8,46 @@ import {
   Inter_900Black,
 } from "@expo-google-fonts/inter"
 import { Loading } from "./src/components/Loading"
-import { Home } from "./src/screens/Home"
-// import { Routes } from './src/routes';
-// import * as Notifications from 'expo-notifications'
-// import './src/services/notificationConfigs';
-// import { getPushNotificationToken } from './src/services/getPushNotification';
-// import { useEffect, useRef } from "react"
-// import { Subscription } from "expo-modules-core"
+import { Routes } from "./src/routes"
+import * as Notifications from "expo-notifications"
+import "./src/services/notificationConfigs"
+import { getPushNotificationToken } from "./src/services/getPushNotification"
+import { useEffect, useRef } from "react"
+import { Subscription } from "expo-modules-core"
 
 export default function App() {
-  // const getNotificationListener = useRef<Subscription>();
-  // const responseNotificationListener = useRef<Subscription>();
+  const getNotificationListener = useRef<Subscription>()
+  const responseNotificationListener = useRef<Subscription>()
 
-  // useEffect(() => {
-  //   getPushNotificationToken();
-  // },[])
+  useEffect(() => {
+    getPushNotificationToken()
+  }, [])
 
-  // useEffect(() => {
-  //   getNotificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-  //     console.log(notification)
-  //   })
+  useEffect(() => {
+    getNotificationListener.current =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log(notification)
+      })
 
-  //   responseNotificationListener.current = Notifications.addNotificationResponseReceivedListener(res => {
-  //     console.log(res)
-  //   })
+    responseNotificationListener.current =
+      Notifications.addNotificationResponseReceivedListener((res) => {
+        console.log(res)
+      })
 
-  //   return () => {
-  //     if(getNotificationListener.current && responseNotificationListener.current) {
-  //       Notifications.removeNotificationSubscription(getNotificationListener.current)
-  //       Notifications.removeNotificationSubscription(responseNotificationListener.current)
-  //     }
-  //   }
-  // }, [])
+    return () => {
+      if (
+        getNotificationListener.current &&
+        responseNotificationListener.current
+      ) {
+        Notifications.removeNotificationSubscription(
+          getNotificationListener.current
+        )
+        Notifications.removeNotificationSubscription(
+          responseNotificationListener.current
+        )
+      }
+    }
+  }, [])
 
   const [fontsLoad] = useFonts({
     Inter_400Regular,
@@ -55,7 +63,7 @@ export default function App() {
         backgroundColor="transparent"
         translucent
       />
-      {fontsLoad ? <Home /> : <Loading />}
+      {fontsLoad ? <Routes /> : <Loading />}
     </Background>
   )
 }

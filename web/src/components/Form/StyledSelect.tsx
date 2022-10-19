@@ -1,11 +1,11 @@
 import * as Select from "@radix-ui/react-select"
 import { ChevronDownIcon, ChevronUpIcon } from "@radix-ui/react-icons"
 import { useEffect, useState } from "react"
-import { Game } from "../../App"
+import { GameProps } from "../../App"
 import axios from "axios"
 
 export function StyledSelect() {
-  const [games, setGames] = useState<Game[] | []>([])
+  const [games, setGames] = useState<GameProps[] | []>([])
 
   useEffect(() => {
     axios("http://localhost:3333/games")
@@ -30,7 +30,7 @@ export function StyledSelect() {
                 className="cursor-pointer"
                 value={game.id}
               >
-                <Select.ItemText>{game.name}</Select.ItemText>
+                <Select.ItemText>{game.title}</Select.ItemText>
               </Select.Item>
             ))}
           </Select.Group>
